@@ -1,0 +1,114 @@
+#include<iostream>
+#include<cstdlib>
+#include<stdlib.h>
+#include<string>
+#include<ctime>
+using namespace std;
+
+struct battler
+{
+	int str,agi,dex,mag,bs;
+};
+battler us[10];
+int tries;
+int ui;
+int battle();
+int assigner()
+{
+	for(int bsc=0;bsc<10;bsc++)
+	{
+		us[bsc].str= rand() % 10 + 1;
+		us[bsc].agi= rand() % 10 + 1;
+		us[bsc].dex= rand() % 10 + 1;
+		us[bsc].mag= rand() % 10 + 1;
+		us[bsc].bs=(us[bsc].str+us[bsc].agi+us[bsc].dex+us[bsc].mag)/4;
+	}
+	ui=rand() % 10; //for user variable
+	tries=3;
+	battle();
+	return 0;
+}
+int retry()
+{
+	cout<<"You have lost the game retry?Y/N ";
+	char yn;
+	cin>>yn;
+	if(yn=='y'||yn=='Y')
+		assigner();
+	else if(yn=='n'||yn=='N')
+		exit('n');
+	else
+		retry();
+	return 0;
+}
+int battle()
+{
+	cout<<"Your stats are\n"<<"STR:"<<us[ui].str<<"\nAGI:"<<us[ui].agi<<"\nDEX:"<<us[ui].dex<<"\nMAG:"<<us[ui].mag<<"\nBattle Avg:"<<us[ui].bs;
+	cout<<"\nPlease choose a number to battle from 1-10: ";
+	int ch;
+	cin>>ch;
+	ch--;
+	if(ch==ui&&ch!=9)
+	{
+		ch=ch+1;
+
+	}
+	else if(ch==ui&&ch==9)
+	{
+		ch--;
+	}
+	if(us[ch].bs!=0)
+	{
+		if(tries>0)
+		{
+			if(us[ui].bs>us[ch].bs)
+			{
+				cout<<"You have won the match, all stats +1 your battle strength +1";
+				us[ch].bs=0;
+				us[ui].str= us[ui].str+1;
+				us[ui].agi= us[ui].agi+1;
+				us[ui].dex= us[ui].dex+1;
+				us[ui].mag= us[ui].mag+1;
+				us[ui].bs=us[ui].bs+1;
+				battle();
+			}
+			else if(us[ui].bs<us[ch].bs)
+			{
+				cout<<"You lost\nThe enemy was too strong\n";
+				tries--;
+				battle();
+			}
+			else
+			{
+				cout<<"Its a draw\n";
+				battle();
+			}
+		}
+		else if(tries==0)
+		{
+			retry();
+		}
+	}
+	else if(us[ch].bs==0)
+	{
+		cout<<"You can not battle this user again!";
+		battle();
+	}
+	return 0;
+}
+int main()
+{
+	srand((unsigned) time(0));
+	assigner();
+}
+
+/* 
+algorithm
+a) create around 10 users.
+b) use classes to assign them with their own variables of str,agility,magic,dex and make a formula to compile a battle strength variable.
+c) assign random attributes from 1-10 
+d) assign a random one of them (use array number and assign that array number to a math random variable) to the user.
+e) let the user pick a number to battle with
+f) if the battle strength of the opponent chosen is higher the user loses, dont let user see the BS of opponent
+g) if the user wins add a number to battle strength and remove the opponents
+h) repeat until all opponents are dead*/
