@@ -30,7 +30,7 @@ app.use(passport.initialize());
 app.use(passport.session());
 
 
-mongoose.connect("mongodb://localhost:27017/userDB",{useNewUrlParser:true});
+mongoose.connect("mongodb+srv://PerciusT:test123@cluster0.idqnafo.mongodb.net/userDB",{useNewUrlParser:true});
 // mongoose.set("userCreateIndex",true)
 
 
