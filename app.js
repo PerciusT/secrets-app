@@ -92,7 +92,6 @@ passport.use(new FacebookStrategy({
 
 app.route('/')
 .get(function(req,res){
-	console.log(res.profile)
 	res.render('home')
 })
 
@@ -250,6 +249,6 @@ app.route('/submit')
 	})
 })
 
-app.listen(process.env.PORT||3000,function(){
-	console.log("Listening on port 3000")
+app.listen(process.env.PORT||3000||80,function(){
+	console.log("Listening on port 3000",app.get('env'))
 })
