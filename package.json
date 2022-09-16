@@ -27,6 +27,6 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-local": "^1.0.0",
     "passport-local-mongoose": "^7.1.2",
-    "dotenv": "^8.2.0"
+    "dotenv": "^16.0.1"
   }
 }
